@@ -47,14 +47,29 @@ public class ArrayList<T> implements List<T> {
 		
 		this.data = growArray;
 	}
-	
 	/**
-	 * method adds an element at index.
-	 * if the index is larger then array size or index is less than 0, the method does nothing.
-	 * 
-	 * @param item   	the element to be added to array
-	 * @param index		index of array where new element is added.
-	 */
+	* Method adds an item at index position. 
+	* There are several edge cases to consider before adding item.
+	* 
+	* For first case, if the parameter index is negative or greater 
+	* than the array, method will do nothing.
+	* 
+	* For second case, if the array is not full and the parameter 
+	* index is empty in the array, the method will 
+	* add the item to the index position. 
+	* 
+	* For third case, if the last index position is empty and there's
+	* no item already in the parameter index, then shift all items
+	* to the right by 1 position. At the position index, add the item. 
+	* 
+	* For all other cases, call the method regrow for a new array that 
+	* is double the size. Shift all the items to the right, and add
+	* the item to the index position. 
+	* 
+	* @param item   the element to be added to array
+	* @param index index of array where new element is added.
+	*/
+
 	@Override
 	public void add(T item, int index) {
 		// TODO Auto-generated method stub
@@ -93,7 +108,13 @@ public class ArrayList<T> implements List<T> {
 			data[i] = null;
 		}
 	}
-	
+	/**
+	* Method searches each index in the array until it finds the item
+	* 
+	* @param item the item 
+	* @return if item is found in the array
+	*/
+
 	@Override
 	public boolean contains(Object item) {
 		for(int i = 0; i<data.length;i++) {
@@ -106,6 +127,11 @@ public class ArrayList<T> implements List<T> {
 		}
 		return false;
 	}
+	/**
+	* Method gets the element from array
+	* @param index    the index of the element 
+	* @return the element from index
+	*/
 
 	@Override
 	public T get(int index) {
@@ -117,6 +143,12 @@ public class ArrayList<T> implements List<T> {
 		
 		
 	}
+	/**
+	* Method searches the array for item and return index of the element
+	* 
+	* @param item the item needed to be found for the index 
+	* @return index of the item
+	*/
 
 	@Override
 	public int indexOf(Object item) {
@@ -128,6 +160,10 @@ public class ArrayList<T> implements List<T> {
 		}
 		return -1;
 	}
+	/**
+	* Method checks if the array has any elements
+	* @return true or false if array is empty
+	*/
 
 	@Override
 	public boolean isEmpty() {
@@ -139,6 +175,9 @@ public class ArrayList<T> implements List<T> {
 		}
 		
 	}
+	/**
+	* method returns the size of array
+	*/
 
 	@Override
 	public int size() {
