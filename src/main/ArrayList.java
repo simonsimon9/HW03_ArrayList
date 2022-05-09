@@ -2,7 +2,7 @@ package main;
 
 
 public class ArrayList<T> implements List<T> {
-	private static final int DEFAULT_INITIAL_CAPACITY = 4;
+	private static final int DEFAULT_INITIAL_CAPACITY = 11;
 	private T[] data;
 	private int size;
 
@@ -34,6 +34,10 @@ public class ArrayList<T> implements List<T> {
 		}
 
 	}
+	/**
+	 * Create a new array that is twice the length of current array. 
+	 * Method copies over the old array to the new array. 
+	 */
 	public void regrow() {
 		@SuppressWarnings("unchecked")
 		T[] growArray = (T[]) new Object[this.data.length * 2];
@@ -43,41 +47,60 @@ public class ArrayList<T> implements List<T> {
 		
 		this.data = growArray;
 	}
+	
+	/**
+	 * method adds an element at index.
+	 * if the index is larger then array size or index is less than 0, the method does nothing.
+	 * 
+	 * @param item   	the element to be added to array
+	 * @param index		index of array where new element is added.
+	 */
 	@Override
 	public void add(T item, int index) {
 		// TODO Auto-generated method stub
-		size++;
-		if(index < 0 || index >= data.length) {
-			System.out.println("nata");
+		int lastElement = data.length - 1;
 		
-		}else if(data[data.length-1] != null || data[index] != null || size > data.length) {
-			
+		if(index < 0 || index >= data.length) {
+			// do nothing
+		
+		}else if(size <= data.length && data[index] == null) {
+			data[index] = item;
+			size++;
+		}else if(data[lastElement] == null && data[index] != null) {
+			for(int i = data.length - 1; index < i; i--) {
+				data[i] = data[i-1];
+			}
+			data[index] = item;
+			size++;
+		}
+		else {
 			regrow();
 			for(int i = data.length - 1; index < i; i--) {
 				data[i] = data[i-1];
 			}
 			data[index] = item;
-			
-		}else {
-			data[index] = item;
+			size++;
 		}
 		
 		
 	}
-
+	/**
+	 * Method for loops through the entire array and replaces the indexes with null. 
+	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
 		for(int i = 0; i < data.length; i++) {
 			data[i] = null;
 		}
 	}
-
+	
 	@Override
 	public boolean contains(Object item) {
-		// TODO Auto-generated method stub
 		for(int i = 0; i<data.length;i++) {
-			if(data[i].equals(item)) {
+			if(data[i]==null) {
+				//do nothing if null
+			}
+			else if(data[i].equals(item)) {
 				return true;
 			}
 		}
@@ -86,8 +109,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public T get(int index) {
-		// TODO Auto-generated method stub
-		if(data[index].equals(null)) {
+		if(data[index] == null) {
 			return null;
 		}else {
 			return data[index];
@@ -122,6 +144,9 @@ public class ArrayList<T> implements List<T> {
 	public int size() {
 		return this.size;
 	}
+	
+	/* used for testing
+	
 	public void check() {
 		// TODO Auto-generated method stub
 		System.out.println("\nCheck:");
@@ -139,19 +164,13 @@ public class ArrayList<T> implements List<T> {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ArrayList<Integer> hi = new ArrayList<>();
-		hi.add(1, 0);
-		hi.add(2, 1);
-		hi.add(3, 2);
-		hi.add(4,3);
-		hi.check();
-		hi.add(5, 3);
-		hi.add(10, 0);
-		hi.add(20,15);
-		//hi.add(19, 14);
+		ArrayList<String> hi = new ArrayList<>();
+		hi.add("hey",1);
+		
+		System.out.println(hi.indexOf(5));
 		hi.check();
 		
 		
-	}
+	}*/
 
 }
